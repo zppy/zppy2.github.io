@@ -58,11 +58,11 @@
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="icon-toggle"></span>
 					</button>
-					<a class="navbar-brand" href="/">zppy.GitHub.io</a>
+					<a class="navbar-brand" href="./">zppy.GitHub.io</a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="/">Index</a></li>
+						<li><a href="./">Index</a></li>
 						<li><a href="http://www.sentora.org/" target="_blank">Sentora</a></li>
 						<li><a href="http://forums.sentora.org/" target="_blank">Forums</a></li>
 						<li><a href="http://docs.sentora.org/" target="_blank">Docs</a></li>
@@ -92,10 +92,10 @@
 						
 						<script>
 							$(document).ready(function () {
-								$.get('/repo/ModuleList.txt', function(data) {
+								$.get('./repo/ModuleList.txt', function(data) {
 									arr = data.split('\n');
 									$.each( arr, function( i, val ){
-										jsonurl = "/repo/"+ val +"/info.json";
+										jsonurl = "./repo/"+ val +"/info.json";
 										$.get(jsonurl, function(data) {
 											$( "#ModuleList" ).append('\
 												<tr>\
@@ -221,17 +221,17 @@
 							<p>check out these templates!</p>
 							<script>
 								$(document).ready(function () {
-									$.get('/tpl/tplList.txt', function(data) {
+									$.get('./tpl/tplList.txt', function(data) {
 										arr = data.split('\n');
 										$.each( arr, function( i, val ){
 										//alert(val);
-											jsonurl = "/tpl/"+ val +"/info.json";
+											jsonurl = "./tpl/"+ val +"/info.json";
 											//alert(jsonurl);
 											$.get(jsonurl, function(data) {
 												$( "#tplList" ).append('\
 													<div class="col-sm-6 col-md-4">\
 														<div class="thumbnail">\
-															<img src="/tpl/' + data.TplName + '/thumb.png" alt="theme ' + data.TplName + ' thumbnail">\
+															<img src="./tpl/' + data.TplName + '/thumb.png" alt="theme ' + data.TplName + ' thumbnail">\
 															<div class="caption">	\
 																<h4>' + data.TplName + '</h4>\
 																<p class="text-right">\
