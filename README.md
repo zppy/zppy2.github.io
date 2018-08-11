@@ -1,2 +1,2 @@
-# zppy2.github.io
-Development
+# zppy.github.io
+Sentora repository

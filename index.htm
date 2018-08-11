@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>Zppy.github.io - Public Sentora Repository</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<style>
+			html {
+			  position: relative;
+			  min-height: 100%;
+			}
+			body {
+			  padding-top: 70px;
+			  margin-bottom: 70px;
+			}
+			i {
+			  font-size:18px;
+			}
+			.zppy_icon{
+				height: 18px;
+				width: 18px;
+			}
+			.zppy_icon:hover{
+				opacity: 0.6;
+			}
+			.table>tbody>tr:hover, .table>tbody>tr:nth-child(odd):hover{
+				background-color: #EFEFEF !important;
+			}
+			.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+				padding: 15px 8px;
+			}
+			.thumbnail:hover {
+				background-color: #EFEFEF;
+			}
+			.footer {
+			  font-size: 10px;
+			  position: absolute;
+			  bottom: 0;
+			  width: 100%;
+			  height: 55px;
+			  padding-top:20px;
+			  background-color: #efefef;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- nav -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+		
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-toggle"></span>
+					</button>
+					<a class="navbar-brand" href="/">zppy.GitHub.io</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="/">Index</a></li>
+						<li><a href="http://www.sentora.org/" target="_blank">Sentora</a></li>
+						<li><a href="http://forums.sentora.org/" target="_blank">Forums</a></li>
+						<li><a href="http://docs.sentora.org/" target="_blank">Docs</a></li>
+					</ul>
+				</div>
+			</div> 
+
+		</nav>
+		<!-- /nav -->
+		<div class="container">
+			<div class="row">
+				<!--
+				<div class="col-md-9">
+					<div class="panel panel-default">
+						<div class="panel-heading"><h4><i class="glyphicon glyphicon-info-sign"></i> About the zppy.github.io project</h4></div>
+						<div class="panel-body">
+							<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+						</div>
+					</div>
+				</div>
+				-->
+
+				<div class="col-md-9">
+					<div class="panel panel-default">
+						<div class="panel-heading"><h4><i class="glyphicon glyphicon-tasks"></i> 3rd Party Modules</h4></div>
+						<div class="panel-body"><p>check out these modules!</p></div>
+						
+						<script>
+							$(document).ready(function () {
+								$.get('/repo/ModuleList.txt', function(data) {
+									arr = data.split('\n');
+									$.each( arr, function( i, val ){
+										jsonurl = "/repo/"+ val +"/info.json";
+										$.get(jsonurl, function(data) {
+											$( "#ModuleList" ).append('\
+												<tr>\
+													<td>\
+														<a href="#" class="btn" data-toggle="modal" data-target="#'+ data.ModuleName +'">\
+															<i class="glyphicon glyphicon-file"> </i>\
+														</a>\
+													</td>\
+													<td>'+ data.ModuleName +'</td>\
+													<td>'+ data.ModuleText +'</td>\
+													<td>\
+														<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#'+ data.ModuleName +'">More</a>\
+													</td>\
+												</tr>\
+											' );
+
+											$( ".footer" ).before( '\
+												<div class="modal fade" id="' + data.ModuleName + '" role="dialog">\
+													<div class="modal-dialog">\
+														<div class="modal-content">\
+															<div class="modal-header">\
+																<button type="button" class="close" data-dismiss="modal">&times;</button>\
+																<h4 class="modal-title">Module: ' + data.ModuleName + '</h4>\
+															</div>\
+															<div class="modal-body">\
+																<p>'+ data.ModuleText +'</p>\
+															</div>\
+															<div class="modal-footer">\
+																<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\
+															</div>\
+														</div>\
+													</div>\
+												</div>\
+											' );
+										});
+									});
+									
+								});
+							});
+						</script>
+							
+						<table class="table table-striped">
+							<thead class="thead">
+								<tr>
+									<th>Icon:</th>
+									<th>Name:</th>
+									<th>Description:</th>   
+									<th></th>
+								</tr>
+							</thead>
+							<tbody id="ModuleList"></tbody>
+						</table>
+					</div>
+				</div>
+				
+				<!-- info -->
+				<div class="col-md-3 visible-md info">
+				
+					<h3>
+						<i class="glyphicon glyphicon-info-sign"></i> Information
+					</h3>
+					<hr>
+					<p>
+						This is a responsive dashboard-style layout that uses <a href="http://www.getbootstrap.com">Bootstrap 3</a>. You can use this template as a starting point to create something more unique.
+					</p>
+					<p>
+						Visit the Bootstrap Playground at <a href="http://www.bootply.com">Bootply</a> to tweak this layout, or discover 1000's of Bootstrap code examples and snippets.
+					</p>
+					<hr>
+					<div class="btn-group btn-group-justified">
+						<a href="#" class="btn btn-info col-sm-6" data-toggle="modal" data-target="#AddModule">
+							<i class="glyphicon glyphicon-tasks"></i><br>
+							Add module
+							</a>
+						<a href="#" class="btn btn-info col-sm-6"  data-toggle="modal" data-target="#AddTheme">
+							<i class="glyphicon glyphicon-picture"></i><br>
+							Add theme
+						</a>
+					</div>
+
+					<!-- Modal AddModule-->
+					<div class="modal fade" id="AddModule" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Modal Header</h4>
+								</div>
+								<div class="modal-body">
+									<p>Add some module...</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Modal AddTheme-->
+					<div class="modal fade" id="AddTheme" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Modal Header</h4>
+								</div>
+								<div class="modal-body">
+									<p>Add some theme...</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- /info -->
+				
+				<div class="col-md-9">
+					<div class="panel panel-default">
+						<div class="panel-heading"><h4><i class="glyphicon glyphicon-picture"></i> 3rd Party Templates</h4></div>
+						<div class="panel-body">
+							<p>check out these templates!</p>
+							<script>
+								$(document).ready(function () {
+									$.get('/tpl/tplList.txt', function(data) {
+										arr = data.split('\n');
+										$.each( arr, function( i, val ){
+										//alert(val);
+											jsonurl = "/tpl/"+ val +"/info.json";
+											//alert(jsonurl);
+											$.get(jsonurl, function(data) {
+												$( "#tplList" ).append('\
+													<div class="col-sm-6 col-md-4">\
+														<div class="thumbnail">\
+															<img src="/tpl/' + data.TplName + '/thumb.png" alt="theme ' + data.TplName + ' thumbnail">\
+															<div class="caption">	\
+																<h4>' + data.TplName + '</h4>\
+																<p class="text-right">\
+																	<a href="#" class="btn btn-primary" role="button" data-toggle="modal" data-target="#' + data.TplName + '">More</a>\
+																</p>\
+															</div>\
+														</div>\
+													</div>\
+												' );
+												
+												$( ".footer" ).before( '\
+													<div class="modal fade" id="' + data.TplName + '" role="dialog">\
+														<div class="modal-dialog">\
+															<div class="modal-content">\
+																<div class="modal-header">\
+																	<button type="button" class="close" data-dismiss="modal">&times;</button>\
+																	<h4 class="modal-title">Template: ' + data.TplName + '</h4>\
+																</div>\
+																<div class="modal-body">\
+																	<p>'+ data.TplText +'</p>\
+																</div>\
+																<div class="modal-footer">\
+																	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\
+																</div>\
+															</div>\
+														</div>\
+													</div>\
+												' );
+											});
+										});
+									});
+								});
+							</script>
+							<div id="tplList"></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-9">
+					<div class="panel panel-default">
+						<div class="panel-heading"><h4><i class="glyphicon glyphicon-question-sign"></i> Frequently asked questions</h4></div>
+						<div class="panel-body">
+							<div class="panel-group" id="accordion">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										 <h4 class="panel-title" data-toggle="collapse" data-target="#collapse1">
+											 Question #1: Do we get a F.A.Q. section?
+										 </h4>
+									</div>
+									<div id="collapse1" class="panel-collapse collapse">
+										<div class="panel-body">
+											Yes, of course!
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										 <h4 class="panel-title" data-toggle="collapse" data-target="#collapse2">
+											 Question #2: When do we get a F.A.Q. section?
+										 </h4>
+									</div>
+									<div id="collapse2" class="panel-collapse collapse">
+										<div class="panel-body">
+											I do not know jet!
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										 <h4 class="panel-title" data-toggle="collapse" data-target="#collapse3">
+											 Question #3: Di you have fun making these stupid questions?
+										 </h4>
+									</div>
+									<div id="collapse3" class="panel-collapse collapse">
+										<div class="panel-body">
+											A littlebit, it's more fun then posting some lorem ipsum....
+										</div>
+									</div>
+								</div>						
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		<footer class="footer">
+			<div class="container">
+				<p class="text-muted text-right">zppy.GitHub.io is an collaboration from <a href="http://sentora.org/" target="_blank">Sentora</a> (3rd party) developers and users.</p>
+			</div>
+		</footer>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	</body>
+</html>
