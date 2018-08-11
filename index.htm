@@ -92,7 +92,7 @@
 						
 						<script>
 							$(document).ready(function () {
-								$.get('./repo/ModuleList.txt', function(data) {
+								$.get('./ModuleList.txt', function(data) {
 									arr = data.split('\n');
 									$.each( arr, function( i, val ){
 										jsonurl = "./repo/"+ val +"/info.json";
@@ -221,7 +221,7 @@
 							<p>check out these templates!</p>
 							<script>
 								$(document).ready(function () {
-									$.get('./tpl/tplList.txt', function(data) {
+									$.get('./tplList.txt', function(data) {
 										arr = data.split('\n');
 										$.each( arr, function( i, val ){
 										//alert(val);
