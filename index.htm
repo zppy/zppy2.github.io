@@ -48,12 +48,21 @@
 			  padding-top:20px;
 			  background-color: #efefef;
 			}
+			dl {
+				display: block;
+				-webkit-margin-before: 1em;
+				-webkit-margin-after: 1em;
+				-webkit-margin-start: 0px;
+				-webkit-margin-end: 0px;
+			}
+						dd {
+				display: block;
+				-webkit-margin-start: 40px;
+			}
 		</style>
 	</head>
 	<body>
-		<!-- nav -->
 		<nav class="navbar navbar-inverse navbar-fixed-top">
-		
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -70,16 +79,13 @@
 					</ul>
 				</div>
 			</div> 
-
 		</nav>
-		<!-- /nav -->
 		<div class="container">
 			<div class="row">
 				<div class="col-md-9">
 					<div class="panel panel-default">
 						<div class="panel-heading"><h4><i class="glyphicon glyphicon-tasks"></i> 3rd Party Modules</h4></div>
 						<div class="panel-body"><p>check out these modules!</p></div>
-						
 						<script>
 							$(document).ready(function () {
 								$.get('./ModuleList.txt', function(data) {
@@ -101,8 +107,7 @@
 													</td>\
 												</tr>\
 											' );
-
-											$( ".footer" ).before( '\
+											moduledialog = '\
 												<div class="modal fade" id="' + data.ModuleName + '" role="dialog">\
 													<div class="modal-dialog">\
 														<div class="modal-content">\
@@ -111,7 +116,56 @@
 																<h4 class="modal-title">Module: ' + data.ModuleName + '</h4>\
 															</div>\
 															<div class="modal-body">\
-																<p>'+ data.ModuleText +'</p>\
+																<h1>' + data.ModuleName + '</h1>\
+																<img src="./repo/' + data.ModuleName + '/thumb.png" alt="img">\
+																<dl style="padding-top:15px;">\
+																	<dt>Module name:</dt>\
+																	<dd>' + data.ModuleName + '</dd>\
+																	<dt>Module version:</dt>\
+																	<dd>' + data.ModuleVersion + '</dd>\
+																	<dt>Module Author:</dt>\
+																	<dd>' + data.ModuleAuthor + '';
+												if (data.ModuleAuthorGithubURL) {
+													moduledialog += '\
+																		<a href="' + data.ModuleAuthorGithubURL + '" target="_blank">\
+																			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAA3WAAAN1gGQb3mcAAAAB3RJTUUH4ggMCBUHSjzGXwAAABl0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC4yMfEgaZUAAAD4SURBVChTddG/SoJRGMfx4x9SLLFFaJASl+gOclGHxgSh0UH0AmruDloFp4Y2B4UaNGioQCrQQcS7KEicNUv7/g7vARXeH3yG5/Ccc573vGYtSZTQxBADNHCGfWwkjx5+sNoywz3SsDnAO77wil+45jkeMEEdUZga/vCGME6Qgk48RBBj6KAC7Cg67UaFT+6gnq4KXbfAsQqfFKEpPlVMvSKjwifnWOJbxQd03S12tLCVCPTh6nnSwiVeMPIWcgghhjL60MjaoNHsKPpJVbRwAW2I4xlq1Au1sQv7bKd4RAdZuKjJvc6RFlwCSOAKGsnlGhXs2coY8w85azyd90oJbwAAAABJRU5ErkJggg==" alt="AuthorGithub" />\
+																		</a>';
+												}		
+												if (data.ModuleAuthorForumURL) {
+													moduledialog += '\
+																		<a href="' + data.ModuleAuthorForumURL + '" target="_blank">\
+																			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMjHxIGmVAAABYklEQVQoU11RPWsCQRDdtCG/IIVVKru9D0UrLQQhjY2CHGk894wXC8OZQOAKIYeQKjZaGRFCGhHSJCFWaUwhlkH8JUGIwcnMepsYFx63N/Pe7pu3LFx7nNtHmiauNK0851ysOHeWuH/XdVHTdSdCnA1VksUJkhemWQHTPAUkgGFU5JeAvalhlLhkhycvqJFK1aHXe4Z0ug7t9giSyZoSrZHzFI26B4xsUDEWq0I+34R+/wUsKwDfv4Ns9vL3FgJatFBQntMPWel0HqFQaMJ4PAPXvYVi8XpHIGZoSaxUgU5utR5gMvmAILjHWzfzKCD3CwXOUhUSCRdtXOAM5zAcvkE8Xt0VfJIljO6vqOB5XTnTdg0FryzM+V+DkMv5YNs3u/Eeo8CJ4GaK37VqEMh/o9HFaM+Q6HxjbYDYlw9Hj0I5bwsImYynbhhwXjqUD6cWPQrlTNFRGjQgeSYbKJAnM8bYD2gO6o8l/mOWAAAAAElFTkSuQmCC" alt="AuthorForums" />\
+																		</a>';
+												}
+												moduledialog += '\
+																</dd>\
+																</dl>\
+																<h3>Discription:</h3>\
+																<p>' + data.ModuleText + '</p>\
+																<h3>Links:</h3>\
+																<div>\
+																	<a href="./repo/' + data.ModuleName + '.zpp" class="btn btn-info" target="_blank">\
+																		<i class="glyphicon glyphicon-cloud-download"></i><br>\
+																		Download\
+																	</a>';
+												if (data.ModuleInfoURL) {					
+													moduledialog += '\
+																	<a href="' + data.ModuleInfoURL + '" class="btn btn-info" target="_blank">\
+																		<i class="glyphicon glyphicon-home"></i><br>\
+																		Forum\
+																	</a>';
+												}
+												if (data.ModuleGithubURL) {					
+													moduledialog += '\
+																	<a href="' + data.ModuleGithubURL + '" class="btn btn-info" target="_blank">\
+																		<i class="glyphicon glyphicon-menu-left"></i><br>\
+																		Github\
+																	</a>';
+												}					
+												moduledialog += '\
+																</div>\
+																<h3>How to install:</h3>\
+																<pre><span>1. # zppy repo add zppy.github.io/repo</span><br/><span>2. # zppy update</span><br/><span>3. # zppy install ' + data.ModuleName + '</span></pre>\
 															</div>\
 															<div class="modal-footer">\
 																<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\
@@ -119,14 +173,14 @@
 														</div>\
 													</div>\
 												</div>\
-											' );
+											';
+											$( ".footer" ).before( moduledialog );
 										});
 									});
 									
 								});
 							});
 						</script>
-							
 						<table class="table table-striped">
 							<thead class="thead">
 								<tr>
@@ -140,10 +194,7 @@
 						</table>
 					</div>
 				</div>
-				
-				<!-- info -->
 				<div class="col-md-3 hidden-xs hidden-sm info">
-				
 					<h3>
 						<i class="glyphicon glyphicon-info-sign"></i> Information
 					</h3>
@@ -183,7 +234,61 @@
 									<h4 class="modal-title">Modal Header</h4>
 								</div>
 								<div class="modal-body">
-									<p>Add some module...</p>
+									
+									
+									
+							
+							
+							
+
+
+		<h1>Module name</h1>
+        <img src="http://zppy.auxio.eu/tpl/Syncd/thumb.png" alt="img">
+		
+		<dl style="padding-top:15px;">
+			<dt>Module name:</dt>
+			<dd>something</dd>
+			<dt>Module version:</dt>
+			<dd>someversion</dd>
+			<dt>Module Author:</dt>
+			<dd>someone 
+			<a href="#">
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAA3WAAAN1gGQb3mcAAAAB3RJTUUH4ggMCBUHSjzGXwAAABl0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC4yMfEgaZUAAAD4SURBVChTddG/SoJRGMfx4x9SLLFFaJASl+gOclGHxgSh0UH0AmruDloFp4Y2B4UaNGioQCrQQcS7KEicNUv7/g7vARXeH3yG5/Ccc573vGYtSZTQxBADNHCGfWwkjx5+sNoywz3SsDnAO77wil+45jkeMEEdUZga/vCGME6Qgk48RBBj6KAC7Cg67UaFT+6gnq4KXbfAsQqfFKEpPlVMvSKjwifnWOJbxQd03S12tLCVCPTh6nnSwiVeMPIWcgghhjL60MjaoNHsKPpJVbRwAW2I4xlq1Au1sQv7bKd4RAdZuKjJvc6RFlwCSOAKGsnlGhXs2coY8w85azyd90oJbwAAAABJRU5ErkJggg==" alt="AuthorGithub" />
+			</a>
+			<a href="#">
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMjHxIGmVAAABYklEQVQoU11RPWsCQRDdtCG/IIVVKru9D0UrLQQhjY2CHGk894wXC8OZQOAKIYeQKjZaGRFCGhHSJCFWaUwhlkH8JUGIwcnMepsYFx63N/Pe7pu3LFx7nNtHmiauNK0851ysOHeWuH/XdVHTdSdCnA1VksUJkhemWQHTPAUkgGFU5JeAvalhlLhkhycvqJFK1aHXe4Z0ug7t9giSyZoSrZHzFI26B4xsUDEWq0I+34R+/wUsKwDfv4Ns9vL3FgJatFBQntMPWel0HqFQaMJ4PAPXvYVi8XpHIGZoSaxUgU5utR5gMvmAILjHWzfzKCD3CwXOUhUSCRdtXOAM5zAcvkE8Xt0VfJIljO6vqOB5XTnTdg0FryzM+V+DkMv5YNs3u/Eeo8CJ4GaK37VqEMh/o9HFaM+Q6HxjbYDYlw9Hj0I5bwsImYynbhhwXjqUD6cWPQrlTNFRGjQgeSYbKJAnM8bYD2gO6o8l/mOWAAAAAElFTkSuQmCC" alt="AuthorGithub" />
+			</a>
+			</dd>
+        </dl>
+		<h3>discription:</h3>
+		<p>Minimal is a theme for GitHub Pages.</p>
+		
+		<h3>Links:</h3>
+		<div class="text-left">
+			<a href="#" class="btn btn-info" data-toggle="modal" data-target="#AddModule">
+				<i class="glyphicon glyphicon-tasks"></i><br>
+				Download
+			</a>
+			<a href="#" class="btn btn-info" data-toggle="modal" data-target="#AddTheme">
+				<i class="glyphicon glyphicon-picture"></i><br>
+				Forum thread
+			</a>
+			<a href="#" class="btn btn-info" data-toggle="modal" data-target="#AddTheme">
+				<i class="glyphicon glyphicon-picture"></i><br>
+				Github
+			</a>
+		</div>
+
+		<h3>How to install:</h3>
+		<pre><span class="s1">1.</span> <span class="nb">#</span> <span class="n">zppy repo add zppy.github.io</span>
+		<span class="s1">2.</span> <span class="nb">#</span> <span class="n">zppy update</span>
+		<span class="s1">3.</span> <span class="nb">#</span> <span class="n">zppy install theme_changer</span></pre>
+		
+		
+		
+		
+		
+		
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -191,7 +296,6 @@
 							</div>
 						</div>
 					</div>
-					<!-- Modal AddTheme-->
 					<div class="modal fade" id="AddTheme" role="dialog">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -202,9 +306,9 @@
 								<div class="modal-body">
 									<p>Add some theme...</p>
 									<pre><span class="s1">1.</span> <span class="nb">#</span> <span class="n">zppy repo add zppy.github.io</span>
-<span class="s1">2.</span> <span class="nb">#</span> <span class="n">zppy update</span>
-<span class="s1">3.</span> <span class="nb">#</span> <span class="n">zppy install theme_changer</span></pre>
-<p>Add some theme...</p>
+									<span class="s1">2.</span> <span class="nb">#</span> <span class="n">zppy update</span>
+									<span class="s1">3.</span> <span class="nb">#</span> <span class="n">zppy install theme_changer</span></pre>
+									<p>Add some theme...</p>
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -212,10 +316,7 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
-				<!-- /info -->
-				
 				<div class="col-md-9">
 					<div class="panel panel-default">
 						<div class="panel-heading"><h4><i class="glyphicon glyphicon-picture"></i> 3rd Party Templates</h4></div>
@@ -243,25 +344,74 @@
 														</div>\
 													</div>\
 												' );
-												
-												$( ".footer" ).before( '\
-													<div class="modal fade" id="' + data.TplName + '" role="dialog">\
-														<div class="modal-dialog">\
-															<div class="modal-content">\
-																<div class="modal-header">\
-																	<button type="button" class="close" data-dismiss="modal">&times;</button>\
-																	<h4 class="modal-title">Template: ' + data.TplName + '</h4>\
+												tpldialog = '\
+												<div class="modal fade" id="' + data.TplName + '" role="dialog">\
+													<div class="modal-dialog">\
+														<div class="modal-content">\
+															<div class="modal-header">\
+																<button type="button" class="close" data-dismiss="modal">&times;</button>\
+																<h4 class="modal-title">Template: ' + data.TplName + '</h4>\
+															</div>\
+															<div class="modal-body">\
+																<h1>' + data.TplName + '</h1>\
+																<img src="./tpl/' + data.TplName + '/thumb.png" alt="img">\
+																<dl style="padding-top:15px;">\
+																	<dt>Template name:</dt>\
+																	<dd>' + data.TplName + '</dd>\
+																	<dt>Template version:</dt>\
+																	<dd>' + data.TplVersion + '</dd>\
+																	<dt>Template Author:</dt>\
+																	<dd>' + data.TplAuthor + '';
+												if (data.TplAuthorGithubURL) {
+													tpldialog += '\
+																		<a href="' + data.TplAuthorGithubURL + '" target="_blank">\
+																			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAA3WAAAN1gGQb3mcAAAAB3RJTUUH4ggMCBUHSjzGXwAAABl0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC4yMfEgaZUAAAD4SURBVChTddG/SoJRGMfx4x9SLLFFaJASl+gOclGHxgSh0UH0AmruDloFp4Y2B4UaNGioQCrQQcS7KEicNUv7/g7vARXeH3yG5/Ccc573vGYtSZTQxBADNHCGfWwkjx5+sNoywz3SsDnAO77wil+45jkeMEEdUZga/vCGME6Qgk48RBBj6KAC7Cg67UaFT+6gnq4KXbfAsQqfFKEpPlVMvSKjwifnWOJbxQd03S12tLCVCPTh6nnSwiVeMPIWcgghhjL60MjaoNHsKPpJVbRwAW2I4xlq1Au1sQv7bKd4RAdZuKjJvc6RFlwCSOAKGsnlGhXs2coY8w85azyd90oJbwAAAABJRU5ErkJggg==" alt="AuthorGithub" />\
+																		</a>';
+												}		
+												if (data.TplAuthorForumURL) {
+													tpldialog += '\
+																		<a href="' + data.TplAuthorForumURL + '" target="_blank">\
+																			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMjHxIGmVAAABYklEQVQoU11RPWsCQRDdtCG/IIVVKru9D0UrLQQhjY2CHGk894wXC8OZQOAKIYeQKjZaGRFCGhHSJCFWaUwhlkH8JUGIwcnMepsYFx63N/Pe7pu3LFx7nNtHmiauNK0851ysOHeWuH/XdVHTdSdCnA1VksUJkhemWQHTPAUkgGFU5JeAvalhlLhkhycvqJFK1aHXe4Z0ug7t9giSyZoSrZHzFI26B4xsUDEWq0I+34R+/wUsKwDfv4Ns9vL3FgJatFBQntMPWel0HqFQaMJ4PAPXvYVi8XpHIGZoSaxUgU5utR5gMvmAILjHWzfzKCD3CwXOUhUSCRdtXOAM5zAcvkE8Xt0VfJIljO6vqOB5XTnTdg0FryzM+V+DkMv5YNs3u/Eeo8CJ4GaK37VqEMh/o9HFaM+Q6HxjbYDYlw9Hj0I5bwsImYynbhhwXjqUD6cWPQrlTNFRGjQgeSYbKJAnM8bYD2gO6o8l/mOWAAAAAElFTkSuQmCC" alt="AuthorForums" />\
+																		</a>';
+												}
+												tpldialog += '\
+																</dd>\
+																</dl>\
+																<h3>Discription:</h3>\
+																<p>' + data.TplText + '</p>\
+																<h3>Links:</h3>\
+																<div>\
+																	<a href="./tpl/' + data.TplName + '.zip" class="btn btn-info" target="_blank">\
+																		<i class="glyphicon glyphicon-cloud-download"></i><br>\
+																		Download\
+																	</a>';
+												if (data.TplInfoURL) {					
+													tpldialog += '\
+																	<a href="' + data.TplInfoURL + '" class="btn btn-info" target="_blank">\
+																		<i class="glyphicon glyphicon-home"></i><br>\
+																		Forum\
+																	</a>';
+												}
+												if (data.TplGithubURL) {					
+													tpldialog += '\
+																	<a href="' + data.TplGithubURL + '" class="btn btn-info" target="_blank">\
+																		<i class="glyphicon glyphicon-menu-left"></i><br>\
+																		Github\
+																	</a>';
+												}					
+												tpldialog += '\
 																</div>\
-																<div class="modal-body">\
-																	<p>'+ data.TplText +'</p>\
-																</div>\
-																<div class="modal-footer">\
-																	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\
-																</div>\
+																<h3>How to install: NOT WORKING!</h3>\
+																<pre><span>1. #  bash <(curl -L -Ss http://zppy.github.io/' + data.TplName + '_installer.sh)</span></pre>\
+															</div>\
+															<div class="modal-footer">\
+																<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\
 															</div>\
 														</div>\
 													</div>\
-												' );
+												</div>\
+											';										
+											$( ".footer" ).before( tpldialog );
 											});
 										});
 									});
@@ -271,7 +421,6 @@
 						</div>
 					</div>
 				</div>
-				
 				<div class="col-md-9">
 					<div class="panel panel-default">
 						<div class="panel-heading"><h4><i class="glyphicon glyphicon-question-sign"></i> Frequently asked questions</h4></div>
@@ -312,16 +461,13 @@
 											A littlebit, it's more fun then posting some lorem ipsum....
 										</div>
 									</div>
-								</div>						
-								
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				
 			</div>
 		</div>
-		
 		<footer class="footer">
 			<div class="container">
 				<p class="text-muted text-right">zppy.GitHub.io is (hopefuly) an collaboration from <a href="http://sentora.org/" target="_blank">Sentora</a>'s 3rd party developers and users.</p>
